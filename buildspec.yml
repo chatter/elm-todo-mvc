@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing Elm...
+      - npm install -g elm@0.18.0
+      - npm install -g elm-test@0.18.0
+  build:
+    commands:
+      - echo Building started on `date`
+      - echo Compiling Elm code
+      - elm-make --yes Todo.elm --output build/elm.js
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Syncing to S3
+      - >
+        aws s3 sync . s3://todo-mvc-elm
+          --exclude '*'
+          --include 'index.html'
+          --include 'build/elm.js'
+          --include 'node_modules/todomvc-common/base.js'
+          --include '*todomvc*/*.css'
+          --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+
