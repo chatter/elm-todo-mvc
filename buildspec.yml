@@ -16,7 +16,7 @@ phases:
       - echo Build completed on `date`
       - echo Syncing to S3
       - >
-        aws s3 sync . s3://todo-mvc-elm
+        aws s3 sync . s3://$bucket-name
           --exclude '*'
           --include 'index.html'
           --include 'build/elm.js'
