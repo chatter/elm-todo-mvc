@@ -15,12 +15,5 @@ phases:
     commands:
       - echo Build completed on `date`
       - echo Syncing to S3
-      - >
-        aws s3 sync . s3://$S3_BUCKET_NAME
-          --exclude '*'
-          --include 'index.html'
-          --include 'build/elm.js'
-          --include 'node_modules/todomvc-common/base.js'
-          --include '*todomvc*/*.css'
-          --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+      - aws s3 sync . s3://$S3_BUCKET_NAME --exclude '*' --include 'index.html' --include 'build/elm.js' --include 'node_modules/todomvc-common/base.js' --include '*todomvc*/*.css' --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
 
